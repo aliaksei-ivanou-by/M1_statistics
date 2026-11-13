@@ -17,7 +17,7 @@ M1_statistics/
 ├── summaries/
 │   └── 2026-10.md       # сводка по всем сотрудникам за месяц
 ├── scripts/
-│   └── summary.py       # сбор оценок из отчетов
+│   └── summary.ps1      # сбор оценок из отчетов (PowerShell)
 └── employees/
     └── {Familiya_Imya}/
         ├── 2026-10.md
@@ -31,13 +31,17 @@ M1_statistics/
 
 ## Скрипт сводки
 
-```bash
-python scripts/summary.py 2026-10   # таблица оценок за месяц для summaries/
-python scripts/summary.py --csv     # все встречи в CSV для графиков
-python scripts/summary.py --check   # проверка, что блок yaml совпадает с отчетом
+Запуск из корня репозитория в PowerShell:
+
+```powershell
+.\scripts\summary.ps1 -Month 2026-10    # таблица оценок за месяц для summaries\
+.\scripts\summary.ps1 -Csv ratings.csv  # все встречи в CSV для графиков (открывается в Excel)
+.\scripts\summary.ps1 -Check            # проверка, что блок yaml совпадает с отчетом
 ```
 
-Скрипт читает блоки yaml под заголовком каждой встречи. Нужен только Python 3, без дополнительных пакетов.
+Скрипт читает блоки yaml под заголовком каждой встречи. Работает в Windows PowerShell 5.1 и PowerShell 7, дополнительные модули не нужны. Если запуск скриптов запрещен политикой, используйте `powershell -ExecutionPolicy Bypass -File .\scripts\summary.ps1 -Check`.
+
+Файл скрипта сохранен в UTF-8 с BOM. Без BOM Windows PowerShell 5.1 неверно читает кириллицу, поэтому при редактировании кодировку нужно сохранять.
 
 ## Поля отчета
 
